@@ -1,4 +1,4 @@
-package Inuput_Output.FilterStreans;
+package Inuput_Output.FilterStreams;
 
 import java.io.FilterOutputStream;
 import java.io.IOException;
@@ -12,10 +12,9 @@ public class CustomOutputFilter extends FilterOutputStream {
 
     @Override
     public void write(int b) throws IOException {
-        if (b>=48 && b<= 57){
+        if (b >= 48 && b <= 57) {
             super.write(b);
-        }
-        else {
+        } else {
             super.write(63);
         }
     }
@@ -23,7 +22,7 @@ public class CustomOutputFilter extends FilterOutputStream {
     @Override
     public void write(byte[] b, int off, int len) throws IOException {
 
-        for (int i = off; i < off+len; i++) {
+        for (int i = off; i < off + len; i++) {
             this.write(b[i]);
         }
 
