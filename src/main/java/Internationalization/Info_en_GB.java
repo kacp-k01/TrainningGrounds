@@ -1,13 +1,12 @@
 package Internationalization;
 
+import lombok.Getter;
+
 import java.util.*;
 public class Info_en_GB extends ListResourceBundle {
 
-    public Object[][] getContents() {
-        return contents;
-    }
-
-    private Object[][] contents = {
+@Getter
+    private final Object[][] contents = {
             { "english", "English" },
             { "polish", "Polish" },
             {  "enterData", "Withdrawal" },

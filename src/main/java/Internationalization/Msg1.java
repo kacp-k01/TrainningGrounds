@@ -7,11 +7,10 @@ import java.text.*;
 import java.util.*;
 import java.beans.*;
 
-@SuppressWarnings("serial")
-public class Msg1 extends JFrame  {
+public class Msg1 extends JFrame {
 
-    private JPanel panel = new JPanel();
-    private JTextArea log = new JTextArea(20, 40);
+    private final JPanel panel = new JPanel();
+    private final JTextArea log = new JTextArea(20, 40);
     private String parseErrorPattern;
     private String reportPattern;
     private String exceedPattern;
@@ -34,26 +33,23 @@ public class Msg1 extends JFrame  {
 
         localize(Locale.getDefault());
 
-
         add(log);
 
-        tf.addActionListener( new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ParsePosition p = new ParsePosition(0);
-                String txtNum = tf.getText().trim();
-                Number val = NumberFormat.getInstance().parse(txtNum, p);
-                String out;
-                if (p.getIndex() != txtNum.length())
-                    out = MessageFormat.format(parseErrorPattern, txtNum);
-                else if (sum + val.doubleValue() > limit)
-                    out = MessageFormat.format(exceedPattern, limit);
-                else {
-                    sum += val.doubleValue();
-                    Date date = Calendar.getInstance().getTime();
-                    out = MessageFormat.format(reportPattern, date, val);
-                }
-                log.append(out+'\n');
+        tf.addActionListener(e -> {
+            ParsePosition p = new ParsePosition(0);
+            String txtNum = tf.getText().trim();
+            Number val = NumberFormat.getInstance().parse(txtNum, p);
+            String out;
+            if (p.getIndex() != txtNum.length())
+                out = MessageFormat.format(parseErrorPattern, txtNum);
+            else if (sum + val.doubleValue() > limit)
+                out = MessageFormat.format(exceedPattern, limit);
+            else {
+                sum += val.doubleValue();
+                Date date = Calendar.getInstance().getTime();
+                out = MessageFormat.format(reportPattern, date, val);
             }
+            log.append(out + '\n');
         });
 
         // Inicjacja fontów
@@ -81,12 +77,14 @@ public class Msg1 extends JFrame  {
                 info.getString("english"),
         };
         Component[] c = panel.getComponents();
-        for (int i=0; i<c.length; i++) {
+        for (int i = 0; i < c.length; i++) {
             Statement stmt = new Statement(c[i], "setText",
-                    new Object[] { txt[i] } );
+                    new Object[]{txt[i]});
             try {
                 stmt.execute();
-            } catch(Exception exc) { exc.printStackTrace(); }
+            } catch (Exception exc) {
+                exc.printStackTrace();
+            }
         }
         panel.invalidate();
         parseErrorPattern = info.getString("parseError");
@@ -94,21 +92,11 @@ public class Msg1 extends JFrame  {
         exceedPattern = info.getString("exceedError");
     }
 
-
-    ActionListener locChanger =  new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-            String symloc = e.getActionCommand();
-            String[] locArg = symloc.split("_");
-            localize(new Locale(locArg[0], locArg[1]));
-        }
+    ActionListener locChanger = e -> {
+        String symloc = e.getActionCommand();
+        String[] locArg = symloc.split("_");
+        localize(new Locale(locArg[0], locArg[1]));
     };
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new Msg1();
-            }
-        });
-    }
 
 }
