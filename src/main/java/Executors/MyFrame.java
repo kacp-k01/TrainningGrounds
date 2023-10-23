@@ -1,4 +1,6 @@
-package j;
+package Executors;
+
+import lombok.AllArgsConstructor;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -6,14 +8,12 @@ import java.util.List;
 import java.util.concurrent.*;
 import java.lang.reflect.*;
 
-public class Main extends JFrame implements ActionListener {
-
+public class MyFrame extends JFrame implements ActionListener {
     int k = 0;
-    int n = 15;
-    JTextArea ta = new JTextArea(40,20);
+    JTextArea textArea = new JTextArea(40, 20);
 
-    Main() {
-        add(new JScrollPane(ta));
+    MyFrame() {
+        add(new JScrollPane(textArea));
         JPanel p = new JPanel();
         JButton b = new JButton("Start");
         b.addActionListener(this);
@@ -38,50 +38,45 @@ public class Main extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent e)  {
+    public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
         try {
-            Method m = this.getClass().getDeclaredMethod("task"+cmd);
+            Method m = this.getClass().getDeclaredMethod("task" + cmd);
             m.invoke(this);
-        } catch(Exception exc) { exc.printStackTrace(); }
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
     }
 
-
+    @AllArgsConstructor
     class SumTask implements Callable<Integer> {
-
-        private int taskNum,
-                limit;
-
-        public SumTask(int taskNum, int limit) {
-            this.taskNum = taskNum;
-            this.limit = limit;
-        }
+        private final int taskNum;
+        private final int limit;
 
         public Integer call() throws Exception {
             int sum = 0;
             for (int i = 1; i <= limit; i++) {
                 if (Thread.currentThread().isInterrupted()) return null;
-                sum+=i;
-                ta.append("Task " + taskNum + " part result = " + sum + '\n');
+                sum += i;
+                textArea.append("Task " + taskNum + " part result = " + sum + '\n');
                 Thread.sleep(1000);
             }
             return sum;
         }
-    };
+    }
 
     Future<Integer> task;
 
-    //ExecutorService exec = Executors.newSingleThreadExecutor();
     ExecutorService exec = Executors.newFixedThreadPool(3);
 
     public void taskStart() {
         try {
             task = exec.submit(new SumTask(++k, 15));
-        } catch(RejectedExecutionException exc) {
-            ta.append("Execution rejected\n");
+        } catch (RejectedExecutionException exc) {
+            textArea.append("Execution rejected\n");
             return;
         }
-        ta.append("Task " + k + " submitted\n");
+        textArea.append("Task " + k + " submitted\n");
     }
 
     public void taskResult() {
@@ -90,11 +85,10 @@ public class Main extends JFrame implements ActionListener {
         else if (task.isDone()) {
             try {
                 msg = "Ready. Result = " + task.get();
-            } catch(Exception exc) {
+            } catch (Exception exc) {
                 msg = exc.getMessage();
             }
-        }
-        else msg = "Task is running or waiting for execution";
+        } else msg = "Task is running or waiting for execution";
         JOptionPane.showMessageDialog(null, msg);
     }
 
@@ -104,21 +98,15 @@ public class Main extends JFrame implements ActionListener {
 
     public void taskShutdown() {
         exec.shutdown();
-        ta.append("Executor shutdown\n");
+        textArea.append("Executor shutdown\n");
     }
 
     public void taskShutdownNow() {
         List<Runnable> awaiting = exec.shutdownNow();
-        ta.append("Eeecutor shutdown now - awaiting tasks:\n");
+        textArea.append("Executor shutdown now - awaiting tasks:\n");
         for (Runnable r : awaiting) {
-            ta.append(r.getClass().getName()+'\n');
+            textArea.append(r.getClass().getName() + '\n');
         }
-
-    }
-
-
-    public static void main(String[] args) {
-        new Main();
     }
 
 }
