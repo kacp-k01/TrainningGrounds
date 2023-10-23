@@ -1,10 +1,11 @@
 ## TrainningGrounds
 This repository is collection of various exercises for Java mechanics and components.
 
-
-
 ### Exceptions
 - Creating Custom Exceptions
+
+### Executors
+- Task Executors
 
 ### Internationalization
 - PL
@@ -16,3 +17,9 @@ This repository is collection of various exercises for Java mechanics and compon
 - Custom Streams
 - Filter Streams
 
+### Jar
+- String from file
+
+### Network sockets
+- Client socket
+- Server socket

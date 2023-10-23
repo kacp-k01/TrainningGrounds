@@ -11,7 +11,8 @@ public class Client {
     private static final String SERVER_IP = "127.0.0.1";
     private static final int SERVER_PORT = 9090;
 
-    public static void main(String[] args) throws IOException {
+
+    public static void createClient() throws IOException {
         Socket socket = new Socket(SERVER_IP, SERVER_PORT);
         ServerConnection serverConn = new ServerConnection(socket);
 
@@ -20,18 +21,19 @@ public class Client {
 
         new Thread(serverConn).start();
 
-        while (true){
+        while (true) {
             System.out.println(("> "));
-        String command = keyboard.readLine();
+            String command = keyboard.readLine();
 
-        if(command.equals("quit")) break;
+            if (command.equals("quit")) break;
 
-        out.println(command);
-
+            out.println(command);
 
         }
 
         socket.close();
         System.exit(0);
     }
+
+
 }
