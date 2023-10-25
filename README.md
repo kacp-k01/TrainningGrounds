@@ -10,6 +10,9 @@ This repository is collection of various exercises for Java mechanics and compon
 ### Internationalization
 - PL
 - GB
+- Date
+- Time
+- Language Packages
 
 ### Input/Output Streams
 - Input Streams
