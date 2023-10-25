@@ -26,3 +26,6 @@ This repository is collection of various exercises for Java mechanics and compon
 ### Network sockets
 - Client socket
 - Server socket
+
+### JDBC
+- Simple JDBC connection to Postgres Database
