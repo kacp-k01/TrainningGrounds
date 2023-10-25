@@ -6,10 +6,18 @@ This repository is collection of various exercises for Java mechanics and compon
 
 ### Executors
 - Task Executors
+- Executors Lifecycle
+- Callable
+
+### Locks
+- ReadWrite Lock
 
 ### Internationalization
 - PL
 - GB
+- Date
+- Time
+- Language Packages
 
 ### Input/Output Streams
 - Input Streams
@@ -23,3 +31,12 @@ This repository is collection of various exercises for Java mechanics and compon
 ### Network sockets
 - Client socket
 - Server socket
+
+### JDBC
+- Simple JDBC connection to Postgres Database
+
+### Annotations
+- Annotations Exercise
+
+### ScriptEngine
+- Simple Scripts run from ScriptEngine

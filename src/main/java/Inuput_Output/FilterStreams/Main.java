@@ -8,7 +8,7 @@ public class Main {
         FileOutputStream fout;
         CustomOutputFilter output = null;
         try {
-            fout = new FileOutputStream("src/MyFrame/resources/output.txt");
+            fout = new FileOutputStream("Locks/MyFrame/resources/output.txt");
             output = new CustomOutputFilter(fout);
 
             for (int i = System.in.read(); i != 'X'; i = System.in.read()) {
