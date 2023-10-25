@@ -6,6 +6,11 @@ This repository is collection of various exercises for Java mechanics and compon
 
 ### Executors
 - Task Executors
+- Executors Lifecycle
+- Callable
+
+### Locks
+- ReadWrite Lock
 
 ### Internationalization
 - PL
