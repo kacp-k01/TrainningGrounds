@@ -37,3 +37,6 @@ This repository is collection of various exercises for Java mechanics and compon
 
 ### Annotations
 - Annotations Exercise
+
+### ScriptEngine
+- Simple Scripts run from ScriptEngine
