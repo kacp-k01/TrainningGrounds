@@ -34,3 +34,6 @@ This repository is collection of various exercises for Java mechanics and compon
 
 ### JDBC
 - Simple JDBC connection to Postgres Database
+
+### Annotations
+- Annotations Exercise
